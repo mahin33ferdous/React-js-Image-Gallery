@@ -4,6 +4,7 @@ import Image from '../component/Image';
 const Gallery = () => {
 
     const[images,setImages]=useState([])
+    const[isChecked,setisChecked]=useState([]);
 
     useEffect(()=>{
         fetch('Image.json')
@@ -12,24 +13,66 @@ const Gallery = () => {
         .then(data=>setImages(data))
     },[])
 
+    const handleCheckbox = (imageID) => {
+        if (isChecked.includes(imageID)) {
+          setisChecked(isChecked.filter(id => id !== imageID));
+        } else {
+          setisChecked([...isChecked, imageID]);
+         }
+       };
+  
+  
+      
+      const handleDelete = () => {
+        const updatedItems = images.filter(img => !isChecked.includes(img.id));
+        setImages(updatedItems);
+        setisChecked([]); 
+      };
+
+      const onDragEnd = (result) => {
+        if (!result.destination) return; // If dropped outside the list
+    
+        const reorderedItems = Array.from(images);
+        const [reorderedItem] = reorderedItems.splice(result.source.index, 1);
+        reorderedItems.splice(result.destination.index, 0, reorderedItem);
+    
+        setImages(reorderedItems);
+      };
+
+
+
     return (
         <div className='divide-y p-4 font-custom'>
-         <div className='flex justify-between text-2xl font-bold'>
-         <div className='flex p-2'>
+
+{
+           isChecked?.length?
+           <> <div className='flex justify-between text-2xl font-bold p-4'>
+            <div className='flex p-2'>
             <input type="checkbox" className='h-8 w-8 accent-blue-600 me-2' checked></input>
-            <h2>Files selected</h2>
-         </div>
+          <h2>{isChecked.length} Files selected</h2>
+            </div>
 
-           <h2 className='text-red-600 '>delete files</h2>
-     </div>
+        <h2 className='text-red-600 ' onClick={handleDelete}>delete files</h2>
+           </div>
+          </>
+        :<div className='text-start text-2xl font-bold p-4'> <h2 > Gallery</h2> </div>
+       
+        }
 
-     <div class="container mx-auto px-5 py-2 lg:px-32 lg:pt-12 ">
-    <div class="grid grid-flow-row-dense grid-cols-5 grid-rows-3 ">
 
-         <Image images={images}></Image>
+         <Image 
+         images={images}
+         
+         handleCheckbox={handleCheckbox}
+         handleDelete={handleDelete}
+         isChecked={isChecked}
+         onDragEnd={onDragEnd}
+        
+
+         
+         ></Image>
         </div>
-    </div>
-     </div>
+  
     );
 };
 
