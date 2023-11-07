@@ -27,7 +27,7 @@ const Gallery = () => {
        };
   
   
-      // Delection functionallity of selected files
+      // Delection functionality of selected files
       const handleDelete = () => {
         const updatedItems = images.filter(img => !isChecked.includes(img.id));
         setImages(updatedItems);
@@ -59,6 +59,8 @@ const Gallery = () => {
           setImages(draggedImageInstance)
       };
 
+      
+
     return (
         <div className='divide-y p-4 font-custom'>
 
@@ -67,7 +69,7 @@ const Gallery = () => {
 
            <> <div className='flex justify-between text-2xl font-bold p-4'>
                   <div className='flex p-2'>
-                         <input type="checkbox" className='h-8 w-8 accent-blue-600 me-2' checked></input>
+                         <input type="checkbox" className='h-8 w-8 accent-blue-600 me-2' checked readOnly ></input>
                         <h2>{isChecked.length} Files selected</h2>
                   </div>
                          <h2 className='text-red-600 ' onClick={handleDelete}>delete files</h2>
@@ -82,14 +84,14 @@ const Gallery = () => {
                 <div className="container mx-auto px-5 py-2 lg:px-32 lg:pt-12 ">
                     <div className="grid grid-flow-row-dense lg:grid-cols-5 grid-rows-3 md:grid-cols-4 grid-cols-2 gap-6 ">
                       {images.map((image, index) =>
-                      <Image key={image.key} 
+                      <Image key={image.id} 
                        image={image} 
                        isChecked={isChecked} 
-            index={index} 
-            handleSorting={handleSorting}
-             dragImage={dragImage}
-            draggedOverImage={draggedOverImage}
-            handleCheckbox={handleCheckbox}
+                       index={index} 
+                       handleSorting={handleSorting}
+                       dragImage={dragImage}
+                       draggedOverImage={draggedOverImage}
+                       handleCheckbox={handleCheckbox}
             />
           )}
                   <div className='w-48 h-5/6  p-2  border border-dashed border-gray-950 rounded-lg flex  items-center'>
@@ -98,11 +100,11 @@ const Gallery = () => {
                        <h4 className='text-gray-800 font-semibold ' >Add Photo</h4>
                      </div>
                  </div>
-                    </div>
-                    </div>
+             </div>
+         </div>
 
 
-        </div>
+</div>
   
     );
 };
