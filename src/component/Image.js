@@ -14,8 +14,8 @@ const Image = ({images,handleCheckbox,isChecked,onDragEnd}) => {
                <Droppable droppableId="droppable">
                   {(provided) => (
     <div {...provided.droppableProps} ref={provided.innerRef}>
-                <div class="container mx-auto px-5 py-2 lg:px-32 lg:pt-12 ">
-                    <div class="grid grid-flow-row-dense lg:grid-cols-5 grid-rows-3 md:grid-cols-4 grid-cols-2 gap-4">
+                <div className="container mx-auto px-5 py-2 lg:px-32 lg:pt-12 ">
+                    <div className="grid grid-flow-row-dense lg:grid-cols-5 grid-rows-3 md:grid-cols-4 grid-cols-2 gap-6 ">
 
                                    {images.map((image,index)=>(
                                 <Draggable key={image.id} draggableId={image.id.toString()} index={index}>
@@ -24,12 +24,12 @@ const Image = ({images,handleCheckbox,isChecked,onDragEnd}) => {
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
-                                     className={` image ${index === 0 ? 'col-span-2 row-span-2 h-96 p-2 ' : ' w-48 h-5/6  p-2 '}`}
+                                     className={` image ${index === 0 ? 'col-span-2 row-span-2 h-96 p-4 ' : ' w-48 h-5/6  p-4 '}`}
                                >
 
-                             <div class="w-full h-full group ">
-                                <div class="relative overflow-hidden w-full h-full">
-                                  <img class="h-full w-full object-cover border  border-gray-950 rounded-lg " src={image.img} alt=""/>
+                             <div className="w-full h-full group ">
+                                <div className="relative overflow-hidden w-full h-full">
+                                  <img className="h-full w-full object-cover border  border-gray-950 rounded-lg " src={image.img} alt=""/>
                                        <div   className={`${containerClass} ${!!isChecked.find(item=>item===image.id)? 'opacity-100' : 'opacity-0'}`}>
                                        <button className='m-4 '> <input
                                             type="checkbox"
@@ -52,7 +52,7 @@ const Image = ({images,handleCheckbox,isChecked,onDragEnd}) => {
                  {provided.placeholder}
                   <div className='w-48 h-5/6  p-2  border border-dashed border-gray-950 rounded-lg flex  items-center'>
                       <div className='p-12'>
-                         <FontAwesomeIcon icon={faImage} size="1.5x" color="gray" className='pb-4'/>
+                         <FontAwesomeIcon icon={faImage} size="1x" color="gray" className='pb-4'/>
                        <h4 className='text-gray-800 font-semibold ' >Add Photo</h4>
                      </div>
                  </div>
